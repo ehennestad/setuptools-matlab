@@ -1,4 +1,4 @@
-function installGithubRepository(repositoryUrl, branchName, options)
+function repoTargetFolder = installGithubRepository(repositoryUrl, branchName, options)
 
     arguments
         repositoryUrl (1,1) string
@@ -11,9 +11,11 @@ function installGithubRepository(repositoryUrl, branchName, options)
 
     [organization, repoName] = setuptools.internal.github.parseRepositoryURL(repositoryUrl);
     
-    [repoExists, repoPath] = setuptools.internal.pathtool.lookForRepository(repoName, branchName);
-    if repoExists
-        return
+    if ~options.Update
+        [repoExists, repoPath] = setuptools.internal.pathtool.lookForRepository(repoName, branchName);
+        if repoExists
+            return
+        end
     end
     
     % Todo: Implement updating
@@ -34,7 +36,7 @@ function installGithubRepository(repositoryUrl, branchName, options)
     downloadUrl = sprintf( '%s/archive/refs/heads/%s.zip', repositoryUrl, branchName );
     repoTargetFolder = setuptools.internal.downloadZippedGithubRepo(downloadUrl, repoTargetFolder, true, true);
 
-    commitId = setuptools.internal.github.getCurrentCommitID(repoName, 'Organization', organization, "BranchName", branchName);
+    commitId = setuptools.internal.github.api.getCurrentCommitID(repoName, 'Organization', organization, "BranchName", branchName);
     filePath = fullfile(repoTargetFolder, '.commit_hash');
     setuptools.internal.utility.filewrite(filePath, commitId)
     
