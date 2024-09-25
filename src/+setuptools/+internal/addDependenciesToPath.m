@@ -1,6 +1,6 @@
 function addDependenciesToPath(options)
 
-    arguments   
+    arguments
         options.InstallationLocation (1,1) string = setuptools.internal.getDefaultAddonFolder()
     end
     
@@ -21,7 +21,7 @@ function addDependenciesToPath(options)
                 end
             case 'Unknown'
                 continue
-        end        
+        end
     end
     
     % Add all addons in the package's addon folder to path
@@ -40,7 +40,7 @@ function addDependenciesToPath(options)
         startupFile = setuptools.internal.findStartupFile(folderPath);
         
         if ~isempty(startupFile)
-            run( startupFile ) 
+            run( startupFile )
         else
             addpath(genpath(folderPath))
         end

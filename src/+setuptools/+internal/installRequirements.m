@@ -30,7 +30,7 @@ function installRequirements(mode, options)
 
             case 'Unknown'
                 continue
-        end        
+        end
     end
 end
 
