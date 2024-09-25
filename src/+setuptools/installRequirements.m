@@ -1,5 +1,8 @@
-function installRequirements(mode, options)
+function installRequirements(toolboxFolder, mode, options)
 
+    arguments
+        toolboxFolder (1,1) string {mustBeFolder}
+    end
     arguments (Repeating)
         mode string {mustBeMember(mode, ["force", "f", "update", "u"])}
     end
@@ -14,11 +17,11 @@ function installRequirements(mode, options)
     doUpdate = any(strcmp(mode, {'update'})) || any( strcmp(mode, {'u'}) );
     %Todo.
     
-    reqs = setuptools.internal.getRequirements();
+    reqs = setuptools.internal.getRequirements(toolboxFolder);
     
     installationLocation = options.InstallationLocation;
     if ~isfolder(installationLocation); mkdir(installationLocation); end
-
+    
     for i = 1:numel(reqs)
         switch reqs(i).Type
             case 'GitHub'
