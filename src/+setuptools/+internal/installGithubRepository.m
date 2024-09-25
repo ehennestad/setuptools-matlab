@@ -47,4 +47,8 @@ function repoTargetFolder = installGithubRepository(repositoryUrl, branchName, o
     else
         addpath(genpath(repoTargetFolder));
     end
+
+    if ~nargout
+        clear repoTargetFolder
+    end
 end
