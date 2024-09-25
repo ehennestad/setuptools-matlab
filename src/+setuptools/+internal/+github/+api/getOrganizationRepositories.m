@@ -2,7 +2,7 @@ function reposStruct = getOrganizationRepositories(organizationName)
     % getOrgRepositories Retrieves all repositories for a given organization.
     %
     % Inputs:
-    %   orgName - Name of the GitHub organization
+    %   organizationName - Name of the GitHub organization
     %
     % Outputs:
     %   reposStruct - A struct array with fields 'name' and 'visibility'.

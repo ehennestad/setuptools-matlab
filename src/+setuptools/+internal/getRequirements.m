@@ -1,12 +1,23 @@
 function requirements = getRequirements(packageRootDirectory)
 % getRequirements - Get toolbox requirements / dependencies
+%
+%   requirements = setuptools.internal.getRequirements(packageRootDirectory)
+%       returns a struct array where each element represents a
+%       requirement/dependency. This function assumes a requirements.txt
+%       file is present in the provided packageRootDirectorys
     
     arguments
         packageRootDirectory (1,1) string
     end
-    
-    requirementsStr = fileread(fullfile(packageRootDirectory, 'requirements.txt'));
 
+    requirementsFilePath = fullfile(packageRootDirectory, 'requirements.txt');
+    
+    if ~isfile(requirementsFilePath)
+        error("SetupTools:RequirementsFileNotFound", ...
+            'No requirements file was found in the given toolbox folder')
+    end
+
+    requirementsStr = fileread(requirementsFilePath);
     requirements = splitlines(requirementsStr);
 
     isEmpty = cellfun('isempty', requirements);
